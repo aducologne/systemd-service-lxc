@@ -1,0 +1,15 @@
+[Unit]
+Description=LXC Container %i
+After=network.target
+After=dbus.service
+After=iscsid.service
+After=apparmor.service
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/lxc-start -n %i --daemon
+ExecStop=/usr/bin/lxc-stop -n %i
+ExecRestart=/usr/bin/lxc-stop -n %i --reboot
+
+[Install]
+WantedBy=multi-user.target
